@@ -8,7 +8,7 @@
 
 using namespace std;
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
-int getPivot(vector<int>& array,int low, int high, int Pivot_Selection) {
+int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection) {
     //pivo fixo no primeiro elemento
     if(Pivot_Selection==1){
         return low;
@@ -53,14 +53,15 @@ int getPivot(vector<int>& array,int low, int high, int Pivot_Selection) {
 }
 
 // Função de partição do QuickSort
-int partition(vector<int>& array, int low, int high,int Pivot_Selection) {
-    int PivotIndex = getPivot(array,low, high,Pivot_Selection);
-    swap(array[PivotIndex], array[high]);
+int partition(vector<int>& array, int low, int high, int Pivot_Selection) {
+    int pivotIndex = getPivotPosition(array, low, high, Pivot_Selection);
+    swap(array[pivotIndex], array[high]);
+
 
     int pivot = array[high]; // Pivô é agora o último elemento
     int i = low - 1; // Índice do menor elemento
 
-    for (int j = low; j <= high - 1; j++) {
+    for (int j = low; j < high; j++) {
         if (array[j] <= pivot) {
             i++;
             swap(array[i], array[j]);
@@ -72,11 +73,11 @@ int partition(vector<int>& array, int low, int high,int Pivot_Selection) {
 }
 
 // Função principal do QuickSort
-void quickSort(vector<int>& array, int low, int high,int Pivot_Selection) {
+void quickSort(vector<int>& array, int low, int high, int Pivot_Selection) {
     if (low < high) {
-        int pi = partition(array, low, high,Pivot_Selection);
-        quickSort(array, low, pi - 1,Pivot_Selection);
-        quickSort(array, pi + 1, high,Pivot_Selection);
+        int pi = partition(array, low, high, Pivot_Selection);
+        quickSort(array, low, pi - 1, Pivot_Selection);
+        quickSort(array, pi + 1, high, Pivot_Selection);
     }
 }
 
@@ -104,15 +105,12 @@ void swapingNumbers(vector<int> &array, float swapProportion) {
     int size = array.size();
     float numSwap = size * swapProportion;
 
-    //cout << "oi " << numSwap << " " << size << endl;
     for (int i = 0; i < numSwap; ++i) {
 
         int indice1 = rand() % size;
         int indice2 = rand() % size;
-        //cout << indice1 << ' ' << indice2 << endl;
-        //cout << "pos antes: " << array[indice1] << ' ' << array[indice2] << endl;
+
         swap(array[indice1], array[indice2]);
-        //cout << "pos depois: " << array[indice1] << ' ' << array[indice2] << endl;
     }
 }
 
