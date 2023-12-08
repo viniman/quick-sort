@@ -4,7 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include <chrono>
-
+#include <sstream>
 
 using namespace std;
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
@@ -21,7 +21,23 @@ int getPivot(vector<int>& array,int low, int high, int Pivot_Selection) {
     
     //Pivô média considerando a média do primeiro , central e último valores da lista
     if(Pivot_Selection==3){
-        return ((low + (high - low) / 2)+low+high)/3;
+        //return ((low + (high - low) / 2)+low+high)/3;
+            int meio = (low + high) / 2;
+            int indiceMaisProximo = high;
+
+            // Calcula a média dos valores do início, meio e fim
+            int media = (array[low] + array[meio] + array[high]) / 3;
+            int diferencaMaisProxima = abs(array[low] - media);
+
+            for (int i = low + 1; i <= high; ++i) {
+                int diferencaAtual = abs(array[i] - media);
+                if (diferencaAtual < diferencaMaisProxima) {
+                    diferencaMaisProxima = diferencaAtual;
+                    indiceMaisProximo = i;
+                }
+            }
+
+    return indiceMaisProximo;
     }
     
     //gera pivos aleatorios
@@ -119,11 +135,7 @@ int main() {
     
     srand(time(0)); 
     int Pivot_Selection = 1;
-    int p = 3;
-    ofstream arquivo_saida("data_4_6.txt");
-
-
-
+    int p = 0;
     int size[5];
 
     size[0] = 100;
@@ -140,52 +152,60 @@ int main() {
 
     
     
+    for(p = 0;p<5;p++){
+        std::string pivotamento = std::to_string(Pivot_Selection);
+        std::string tamanho = std::to_string(size[p]);
+        std::string saida = "data_" +  pivotamento + "_" + tamanho  + ".txt";
+        ofstream arquivo_saida(saida);
+    
+
+        for(int i=0;i<10;i++){
+            std::cout << "terminando" << i << endl;
+            arquivo_saida << "tamanho: " << size[p] << " teste: " << i+1 << '\n' << '\n';
+            //---------------------------------------------------------------------------------------------------------------------------------//
+            intArray(array[p],size[p]);
+            swapingNumbers(array[p],(size[p]/100)*5,size[p]);
+
+            auto start_time = std::chrono::steady_clock::now();
+                quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            auto end_time = std::chrono::steady_clock::now();
+
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+            arquivo_saida << "desorganização nivel: " << "5% :" << duration.count() << '\n';
 
 
-    for(int i=0;i<10;i++){
-        std::cout << "terminando" << i << endl;
-        arquivo_saida << "tamanho 100000 " << "teste: " << i+1 << '\n' << '\n';
+            //---------------------------------------------------------------------------------------------------------------------------------//
+            std::cout << "terminando" << i << endl;
+            intArray(array[p],size[p]);
+            swapingNumbers(array[p],(size[p]/100)*25,size[p]);
+
+            start_time = std::chrono::steady_clock::now();
+                quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            end_time = std::chrono::steady_clock::now();
+
+            duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+            arquivo_saida << "desorganização nivel: " << "25% :" << duration.count() <<  '\n';
+            
         //---------------------------------------------------------------------------------------------------------------------------------//
-        intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*5,size[p]);
-
-        auto start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        auto end_time = std::chrono::steady_clock::now();
-
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
-        arquivo_saida << "desorganização nivel: " << "5% :" << duration.count() << '\n';
-
-
-        //---------------------------------------------------------------------------------------------------------------------------------//
         std::cout << "terminando" << i << endl;
-        intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*25,size[p]);
+            intArray(array[p],size[p]);
+            swapingNumbers(array[p],(size[p]/100)*45,size[p]);
 
-        start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        end_time = std::chrono::steady_clock::now();
+            start_time = std::chrono::steady_clock::now();
+                quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            end_time = std::chrono::steady_clock::now();
 
-        duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+            duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-        arquivo_saida << "desorganização nivel: " << "25% :" << duration.count() <<  '\n';
-        
-       //---------------------------------------------------------------------------------------------------------------------------------//
-       std::cout << "terminando" << i << endl;
-        intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*45,size[p]);
+            arquivo_saida << "desorganização nivel: " << "45% :" << duration.count() <<  '\n' << '\n';
+        }
 
-        start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        end_time = std::chrono::steady_clock::now();
-
-        duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
-        arquivo_saida << "desorganização nivel: " << "45% :" << duration.count() <<  '\n' << '\n';
+        arquivo_saida << '\n'<<"-------------------------------------------------------------------------------------------" << '\n';
+        arquivo_saida.close();
     }
-
-    arquivo_saida.close();
+ 
     std::cout << "termino";
     return 0;
 }
