@@ -4,7 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include <chrono>
-
+#include <sstream>
 
 using namespace std;
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
@@ -21,7 +21,23 @@ int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection)
 
     //Pivô média considerando a média do primeiro , central e último valores da lista
     if(Pivot_Selection==3){
-        return ((low + (high - low) / 2)+low+high)/3;
+        //return ((low + (high - low) / 2)+low+high)/3;
+            int meio = (low + high) / 2;
+            int indiceMaisProximo = high;
+
+            // Calcula a média dos valores do início, meio e fim
+            int media = (array[low] + array[meio] + array[high]) / 3;
+            int diferencaMaisProxima = abs(array[low] - media);
+
+            for (int i = low + 1; i <= high; ++i) {
+                int diferencaAtual = abs(array[i] - media);
+                if (diferencaAtual < diferencaMaisProxima) {
+                    diferencaMaisProxima = diferencaAtual;
+                    indiceMaisProximo = i;
+                }
+            }
+
+    return indiceMaisProximo;
     }
 
     //gera pivos aleatorios
@@ -124,7 +140,6 @@ int main() {
     srand(time(0));
     int Pivot_Selection = 1;
     int p = 3;
-    ofstream arquivo_saida("data_4_6.txt");
 
     float percentSwapArray[3] = {0.05, 0.25, 0.45};
 
@@ -144,13 +159,19 @@ int main() {
     //printArray(array[p]);
 
 
+    // for(p = 0;p<5;p++){
+    string pivotamento = to_string(Pivot_Selection);
+    string tamanho = to_string(size[p]);
+    string saida = "data_" +  pivotamento + "_" + tamanho  + ".txt";
+    ofstream arquivo_saida(saida);
 
 
     for(int i=0;i<10;i++){
 
+
         for(auto percentSwap: percentSwapArray)
         {
-            std::cout << "terminando " << i << endl;
+            cout << "terminando " << i << endl;
             arquivo_saida << "tamanho " << size[p] << " teste: " << i+1 << endl << endl;
 
             intArray(array[p],size[p]);
@@ -158,17 +179,19 @@ int main() {
             swapingNumbers(array[p], 0.05);
             // printArray(array[p]);
 
-            auto start_time = std::chrono::steady_clock::now();
+            auto start_time = chrono::steady_clock::now();
             quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-            auto end_time = std::chrono::steady_clock::now();
+            auto end_time = chrono::steady_clock::now();
             // printArray(array[p]);
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+            auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
 
             arquivo_saida << "desorganização nivel: " << int(percentSwap*100) << "% : " << duration.count() << endl;
         }
     }
-
+    arquivo_saida << '\n'<<"-------------------------------------------------------------------------------------------" << '\n';
     arquivo_saida.close();
-    std::cout << "termino";
+    // }
+
+    cout << "termino";
     return 0;
 }

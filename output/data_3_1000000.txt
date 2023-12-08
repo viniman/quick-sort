@@ -1,0 +1,62 @@
+1000000teste: 1
+
+desorganização nivel: 5% :384645
+desorganização nivel: 25% :482998
+desorganização nivel: 45% :357118
+
+1000000teste: 2
+
+desorganização nivel: 5% :351104
+desorganização nivel: 25% :332246
+desorganização nivel: 45% :369297
+
+1000000teste: 3
+
+desorganização nivel: 5% :398997
+desorganização nivel: 25% :320120
+desorganização nivel: 45% :312859
+
+1000000teste: 4
+
+desorganização nivel: 5% :332254
+desorganização nivel: 25% :354835
+desorganização nivel: 45% :349474
+
+1000000teste: 5
+
+desorganização nivel: 5% :386077
+desorganização nivel: 25% :439924
+desorganização nivel: 45% :317823
+
+1000000teste: 6
+
+desorganização nivel: 5% :317338
+desorganização nivel: 25% :377514
+desorganização nivel: 45% :311864
+
+1000000teste: 7
+
+desorganização nivel: 5% :303711
+desorganização nivel: 25% :344620
+desorganização nivel: 45% :308812
+
+1000000teste: 8
+
+desorganização nivel: 5% :313540
+desorganização nivel: 25% :374474
+desorganização nivel: 45% :324294
+
+1000000teste: 9
+
+desorganização nivel: 5% :313159
+desorganização nivel: 25% :317997
+desorganização nivel: 45% :312122
+
+1000000teste: 10
+
+desorganização nivel: 5% :322217
+desorganização nivel: 25% :389984
+desorganização nivel: 45% :316566
+
+
+-------------------------------------------------------------------------------------------
