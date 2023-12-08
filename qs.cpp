@@ -128,7 +128,7 @@ int main() {
     int p = 0;
     ofstream arquivo_saida("data_4_6.txt");
 
-
+    float percentSwapArray[3] = {0.05, 0.25, 0.45};
 
     int size[5];
 
@@ -149,49 +149,27 @@ int main() {
 
 
     for(int i=0;i<10;i++){
-        std::cout << "terminando" << i << endl;
-        arquivo_saida << "tamanho 100000 " << "teste: " << i+1 << '\n' << '\n';
-        //---------------------------------------------------------------------------------------------------------------------------------//
-        intArray(array[p],size[p]);
-        printArray(array[p]);
-        swapingNumbers(array[p], 0.05);
-        printArray(array[p]);
 
-        auto start_time = std::chrono::steady_clock::now();
-        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        auto end_time = std::chrono::steady_clock::now();
-        printArray(array[p]);
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+        for(auto percentSwap: percentSwapArray)
+        {
+            std::cout << "terminando" << i << endl;
+            arquivo_saida << "tamanho " << size[p] << " teste: " << i+1 << endl << endl;
 
-        arquivo_saida << "desorganização nivel: " << "5% :" << duration.count() << '\n';
+            intArray(array[p],size[p]);
+            printArray(array[p]);
+            swapingNumbers(array[p], 0.05);
+            printArray(array[p]);
+
+            auto start_time = std::chrono::steady_clock::now();
+            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            auto end_time = std::chrono::steady_clock::now();
+            printArray(array[p]);
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+            arquivo_saida << "desorganização nivel: " << int(percentSwap*100) << "% : " << duration.count() << endl;
+        }
 
 
-        //---------------------------------------------------------------------------------------------------------------------------------//
-        std::cout << "terminando" << i << endl;
-        intArray(array[p],size[p]);
-        swapingNumbers(array[p], 0.25);
-
-        start_time = std::chrono::steady_clock::now();
-        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        end_time = std::chrono::steady_clock::now();
-
-        duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
-        arquivo_saida << "desorganização nivel: " << "25% :" << duration.count() <<  '\n';
-
-       //---------------------------------------------------------------------------------------------------------------------------------//
-       std::cout << "terminando" << i << endl;
-        intArray(array[p],size[p]);
-        swapingNumbers(array[p], size[p]*0.45);
-
-        start_time = std::chrono::steady_clock::now();
-        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
-        end_time = std::chrono::steady_clock::now();
-
-        duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-
-        arquivo_saida << "desorganização nivel: " << "45% :" << duration.count() <<  '\n' << '\n';
-    }
 
     arquivo_saida.close();
     std::cout << "termino";
