@@ -1,0 +1,62 @@
+1000teste: 1
+
+desorganização nivel: 5% :9968
+desorganização nivel: 25% :174
+desorganização nivel: 45% :290
+
+1000teste: 2
+
+desorganização nivel: 5% :152
+desorganização nivel: 25% :174
+desorganização nivel: 45% :170
+
+1000teste: 3
+
+desorganização nivel: 5% :177
+desorganização nivel: 25% :175
+desorganização nivel: 45% :282
+
+1000teste: 4
+
+desorganização nivel: 5% :153
+desorganização nivel: 25% :164
+desorganização nivel: 45% :325
+
+1000teste: 5
+
+desorganização nivel: 5% :765
+desorganização nivel: 25% :171
+desorganização nivel: 45% :190
+
+1000teste: 6
+
+desorganização nivel: 5% :155
+desorganização nivel: 25% :13231
+desorganização nivel: 45% :278
+
+1000teste: 7
+
+desorganização nivel: 5% :174
+desorganização nivel: 25% :257
+desorganização nivel: 45% :249
+
+1000teste: 8
+
+desorganização nivel: 5% :690
+desorganização nivel: 25% :282
+desorganização nivel: 45% :460
+
+1000teste: 9
+
+desorganização nivel: 5% :160
+desorganização nivel: 25% :166
+desorganização nivel: 45% :498
+
+1000teste: 10
+
+desorganização nivel: 5% :240
+desorganização nivel: 25% :187
+desorganização nivel: 45% :174
+
+
+-------------------------------------------------------------------------------------------
