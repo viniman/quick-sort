@@ -9,31 +9,31 @@
 using namespace std;
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
 int getPivot(vector<int>& array,int low, int high, int Pivot_Selection) {
-    //pivo fixo no primeiro elemento 
+    //pivo fixo no primeiro elemento
     if(Pivot_Selection==1){
         return low;
     }
-     
+
     //Pivô fixo na posição central da lista
     if(Pivot_Selection==2){
         return low + (high - low) / 2;
     }
-    
+
     //Pivô média considerando a média do primeiro , central e último valores da lista
     if(Pivot_Selection==3){
         return ((low + (high - low) / 2)+low+high)/3;
     }
-    
+
     //gera pivos aleatorios
     if(Pivot_Selection==4){
         return low + rand() % (high - low + 1);
     }
-    
+
      //gera pivos utilizando o metodo de "acha pivo"
     if(Pivot_Selection==6){
         int mid = low + (high - low) / 2;
         int pivotIndex = mid;
-    
+
         if ((array[low] <= array[mid] && array[mid] <= array[high]) ||
             (array[high] <= array[mid] && array[mid] <= array[low])) {
             pivotIndex = mid;
@@ -47,9 +47,9 @@ int getPivot(vector<int>& array,int low, int high, int Pivot_Selection) {
     return pivotIndex;
     }
 
-    
+
     return 0;
-    
+
 }
 
 // Função de partição do QuickSort
@@ -100,13 +100,19 @@ void creatArray(vector<int>& array,int n) {
     }
 }
 
-void swapingNumbers(vector<int>& array, int numSwap, int size ) {
+void swapingNumbers(vector<int> &array, float swapProportion) {
+    int size = array.size();
+    float numSwap = size * swapProportion;
+
+    cout << "oi " << numSwap << " " << size << endl;
     for (int i = 0; i < numSwap; ++i) {
 
         int indice1 = rand() % size;
         int indice2 = rand() % size;
-
+        cout << indice1 << ' ' << indice2 << endl;
+        cout << "pos antes: " << array[indice1] << ' ' << array[indice2] << endl;
         swap(array[indice1], array[indice2]);
+        cout << "pos depois: " << array[indice1] << ' ' << array[indice2] << endl;
     }
 }
 
@@ -116,10 +122,10 @@ int main() {
 
 
 
-    
-    srand(time(0)); 
+
+    srand(time(0));
     int Pivot_Selection = 1;
-    int p = 3;
+    int p = 0;
     ofstream arquivo_saida("data_4_6.txt");
 
 
@@ -137,9 +143,9 @@ int main() {
         creatArray(array[i],size[i]);
     }
 
+    printArray(array[p]);
 
-    
-    
+
 
 
     for(int i=0;i<10;i++){
@@ -147,12 +153,14 @@ int main() {
         arquivo_saida << "tamanho 100000 " << "teste: " << i+1 << '\n' << '\n';
         //---------------------------------------------------------------------------------------------------------------------------------//
         intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*5,size[p]);
+        printArray(array[p]);
+        swapingNumbers(array[p], 0.05);
+        printArray(array[p]);
 
         auto start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
         auto end_time = std::chrono::steady_clock::now();
-
+        printArray(array[p]);
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
         arquivo_saida << "desorganização nivel: " << "5% :" << duration.count() << '\n';
@@ -161,23 +169,23 @@ int main() {
         //---------------------------------------------------------------------------------------------------------------------------------//
         std::cout << "terminando" << i << endl;
         intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*25,size[p]);
+        swapingNumbers(array[p], 0.25);
 
         start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
         end_time = std::chrono::steady_clock::now();
 
         duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
         arquivo_saida << "desorganização nivel: " << "25% :" << duration.count() <<  '\n';
-        
+
        //---------------------------------------------------------------------------------------------------------------------------------//
        std::cout << "terminando" << i << endl;
         intArray(array[p],size[p]);
-        swapingNumbers(array[p],(size[p]/100)*45,size[p]);
+        swapingNumbers(array[p], size[p]*0.45);
 
         start_time = std::chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+        quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
         end_time = std::chrono::steady_clock::now();
 
         duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
