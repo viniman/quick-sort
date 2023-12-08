@@ -104,15 +104,15 @@ void swapingNumbers(vector<int> &array, float swapProportion) {
     int size = array.size();
     float numSwap = size * swapProportion;
 
-    cout << "oi " << numSwap << " " << size << endl;
+    //cout << "oi " << numSwap << " " << size << endl;
     for (int i = 0; i < numSwap; ++i) {
 
         int indice1 = rand() % size;
         int indice2 = rand() % size;
-        cout << indice1 << ' ' << indice2 << endl;
-        cout << "pos antes: " << array[indice1] << ' ' << array[indice2] << endl;
+        //cout << indice1 << ' ' << indice2 << endl;
+        //cout << "pos antes: " << array[indice1] << ' ' << array[indice2] << endl;
         swap(array[indice1], array[indice2]);
-        cout << "pos depois: " << array[indice1] << ' ' << array[indice2] << endl;
+        //cout << "pos depois: " << array[indice1] << ' ' << array[indice2] << endl;
     }
 }
 
@@ -125,7 +125,7 @@ int main() {
 
     srand(time(0));
     int Pivot_Selection = 1;
-    int p = 0;
+    int p = 3;
     ofstream arquivo_saida("data_4_6.txt");
 
     float percentSwapArray[3] = {0.05, 0.25, 0.45};
@@ -143,7 +143,7 @@ int main() {
         creatArray(array[i],size[i]);
     }
 
-    printArray(array[p]);
+    //printArray(array[p]);
 
 
 
@@ -152,18 +152,18 @@ int main() {
 
         for(auto percentSwap: percentSwapArray)
         {
-            std::cout << "terminando" << i << endl;
+            std::cout << "terminando " << i << endl;
             arquivo_saida << "tamanho " << size[p] << " teste: " << i+1 << endl << endl;
 
             intArray(array[p],size[p]);
-            printArray(array[p]);
+            // printArray(array[p]);
             swapingNumbers(array[p], 0.05);
-            printArray(array[p]);
+            // printArray(array[p]);
 
             auto start_time = std::chrono::steady_clock::now();
             quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
             auto end_time = std::chrono::steady_clock::now();
-            printArray(array[p]);
+            // printArray(array[p]);
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
             arquivo_saida << "desorganização nivel: " << int(percentSwap*100) << "% : " << duration.count() << endl;
