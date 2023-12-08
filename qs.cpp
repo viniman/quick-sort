@@ -168,8 +168,7 @@ int main() {
 
             arquivo_saida << "desorganização nivel: " << int(percentSwap*100) << "% : " << duration.count() << endl;
         }
-
-
+    }
 
     arquivo_saida.close();
     std::cout << "termino";
