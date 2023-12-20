@@ -8,6 +8,39 @@
 #include <algorithm>
 
 using namespace std;
+
+// algoritmo k-ésimo mínimo que encontra o elemento da mediana em tempo linear
+int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, int k) {
+    if (inicio == fim)
+        return inicio;
+
+    int pivotIndex = inicio + rand() % (fim - inicio + 1);
+    int pivot = array[pivotIndex];
+
+    swap(array[pivotIndex], array[fim]);
+
+    // Particionamento
+    int i = inicio;
+    for (int j = inicio; j < fim; j++) {
+        if (array[j] <= pivot) {
+            swap(array[i], array[j]);
+            i++;
+        }
+    }
+
+    swap(array[i], array[fim]);
+
+    // Verificar a posição do pivô
+    int posicaoPivo = i - inicio + 1;
+
+    if (posicaoPivo == k)
+        return i;
+    else if (posicaoPivo < k)
+        return kEsimoMinimoEncontraMediana(array, i + 1, fim, k - posicaoPivo);
+    else
+        return kEsimoMinimoEncontraMediana(array, inicio, i - 1, k);
+}
+
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
 int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection) {
     //pivo fixo no primeiro elemento
@@ -109,7 +142,7 @@ void quickSort(vector<int>& array, int low, int high, int Pivot_Selection) {
     }
 }
 
-// Função de impressão de um vetor
+// Função de impressão de um array
 void printArray(const vector<int>& array) {
     for (int value : array) {
         cout << value << " ";
