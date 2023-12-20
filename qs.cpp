@@ -5,6 +5,7 @@
 #include <fstream>
 #include <chrono>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
@@ -42,7 +43,18 @@ int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection)
 
     //gera pivos aleatorios
     if(Pivot_Selection==4){
-        return low + rand() % (high - low + 1);
+        int meio = (low + high) / 2;
+        vector<int> pivoMediana = {array[low], array[meio], array[high]};
+        sort(pivoMediana.begin(), pivoMediana.end());
+        return pivoMediana[1];
+    }
+
+    // pivos mediana de k valores
+
+    if(Pivot_Selection==5){
+        int k = 3;
+
+        return low + (high - low) / 2;
     }
 
      //gera pivos utilizando o metodo de "acha pivo"
