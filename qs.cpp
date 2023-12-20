@@ -14,7 +14,7 @@ int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, in
     if (inicio == fim)
         return inicio;
 
-    int pivotIndex = inicio + rand() % (fim - inicio + 1);
+    int pivotIndex = inicio + (fim - inicio) / 2; //inicio + rand() % (fim - inicio + 1);
     int pivot = array[pivotIndex];
 
     swap(array[pivotIndex], array[fim]);
@@ -71,23 +71,20 @@ int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection)
                 }
             }
 
+
     return indiceMaisProximo;
     }
 
     //gera pivos aleatorios
     if(Pivot_Selection==4){
-        int meio = (low + high) / 2;
-        vector<int> pivoMediana = {array[low], array[meio], array[high]};
-        sort(pivoMediana.begin(), pivoMediana.end());
-        return pivoMediana[1];
+        return low + rand() % (high - low + 1);
     }
 
     // pivos mediana de k valores
 
     if(Pivot_Selection==5){
-        int k = 3;
-
-        return low + (high - low) / 2;
+         int k = (high + 1) / 2; // índice da mediana em um conjunto ímpar
+        return kEsimoMinimoEncontraMediana(array, low, high, k);
     }
 
      //gera pivos utilizando o metodo de "acha pivo"
