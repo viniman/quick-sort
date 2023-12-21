@@ -42,9 +42,10 @@ int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, in
 }
 
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
-int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection) {
+int getPivotPosition(vector<int> &array, int low, int high, int Pivot_Selection) {
     //pivo fixo no primeiro elemento
     if(Pivot_Selection==1){
+        cout << "OK " << low << endl;
         return low;
     }
 
@@ -176,6 +177,14 @@ void creatArray(vector<int>& array,int n) {
     }
 }
 
+vector<int> creatArrayReturn(int n) {
+    vector<int> array;
+    for (int i=0;i<n;i++) {
+        array.push_back(i+1);
+    }
+    return array;
+}
+
 void swapingNumbers(vector<int> &array, float swapProportion) {
     int size = array.size();
     float numSwap = size * swapProportion;
@@ -188,6 +197,48 @@ void swapingNumbers(vector<int> &array, float swapProportion) {
         swap(array[indice1], array[indice2]);
     }
 }
+
+
+
+
+// Chamada Recursiva para Nova versão do Quick Sort
+void quickSortRec(vector<int> &vect, int ini, int fim) {
+    int i, j;
+    i = ini;
+    j = fim - 1;
+    int pivo = ini;// getPivotPosition(vect, ini, fim, 1); //vect[(ini + fim) / 2];
+
+    ///Inicio Particionamento
+    while (i <= j) {
+        while (vect[i] < pivo && i < fim) {
+            i++;
+        }
+        while (vect[j] > pivo && j > ini) {
+            j--;
+        }
+        if (i <= j) {
+            int aux = vect[i];
+            vect[i] = vect[j];
+            vect[j] = aux;
+            i++;
+            j--;
+        }
+    }
+    ///Fim Particionamento
+
+    ///Chamadas recursivas
+    if (j > ini)
+        quickSortRec(vect, ini, j + 1);
+    if (i < fim)
+        quickSortRec(vect, i, fim);
+}
+
+// Chamada principal para nova versão do QuickSort
+void quickSortNewVersion(vector<int> &vect)
+{
+    quickSortRec(vect, 0, vect.size());
+}
+
 
 
 
@@ -215,7 +266,6 @@ int main() {
         creatArray(array[i],size[i]);
     }
 
-    //printArray(array[p]);
 
 
     // for(p = 0;p<5;p++){
@@ -225,23 +275,24 @@ int main() {
     ofstream arquivo_saida(saida);
 
 
-    for(int i=0;i<10;i++){
+    for(float percentSwap: percentSwapArray)
+    {
+        for(int i=0;i<10;i++){
 
-
-        for(auto percentSwap: percentSwapArray)
-        {
             cout << "terminando " << i << endl;
             arquivo_saida << "tamanho " << size[p] << " teste: " << i+1 << endl << endl;
 
-            intArray(array[p],size[p]);
-            // printArray(array[p]);
-            swapingNumbers(array[p], 0.05);
-            // printArray(array[p]);
+            swapingNumbers(array[p], percentSwap);
 
             auto start_time = chrono::steady_clock::now();
-            quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            if(Pivot_Selection == 1) {
+                quickSortNewVersion(array[p]);
+            }
+            else {
+                quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+            }
             auto end_time = chrono::steady_clock::now();
-            // printArray(array[p]);
+
             auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time);
 
             arquivo_saida << "desorganização nivel: " << int(percentSwap*100) << "% : " << duration.count() << endl;
