@@ -42,29 +42,29 @@ int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, in
 }
 
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
-int getPivotPosition(vector<int> &array, int low, int high, int Pivot_Selection) {
+int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption) {
     //pivo fixo no primeiro elemento
-    if(Pivot_Selection==1){
-        cout << "OK " << low << endl;
-        return low;
+    if(pivoSelectOption==1){
+        cout << "OK " << ini << endl;
+        return ini;
     }
 
     //Pivô fixo na posição central da lista
-    if(Pivot_Selection==2){
-        return low + (high - low) / 2;
+    if(pivoSelectOption==2){
+        return ini + (fim - ini) / 2;
     }
 
     //Pivô média considerando a média do primeiro , central e último valores da lista
-    if(Pivot_Selection==3){
-        //return ((low + (high - low) / 2)+low+high)/3;
-            int meio = (low + high) / 2;
-            int indiceMaisProximo = high;
+    if(pivoSelectOption==3){
+        //return ((ini + (fim - ini) / 2)+ini+fim)/3;
+            int meio = (ini + fim) / 2;
+            int indiceMaisProximo = fim;
 
             // Calcula a média dos valores do início, meio e fim
-            int media = (array[low] + array[meio] + array[high]) / 3;
-            int diferencaMaisProxima = abs(array[low] - media);
+            int media = (array[ini] + array[meio] + array[fim]) / 3;
+            int diferencaMaisProxima = abs(array[ini] - media);
 
-            for (int i = low + 1; i <= high; ++i) {
+            for (int i = ini + 1; i <= fim; ++i) {
                 int diferencaAtual = abs(array[i] - media);
                 if (diferencaAtual < diferencaMaisProxima) {
                     diferencaMaisProxima = diferencaAtual;
@@ -78,27 +78,27 @@ int getPivotPosition(vector<int> &array, int low, int high, int Pivot_Selection)
 
 
     //gera pivos aleatorios
-    if(Pivot_Selection==4){
-        return low + rand() % (high - low + 1);
+    if(pivoSelectOption==4){
+        return ini + rand() % (fim - ini + 1);
     }
 
     // pivo mediana usando o Algoritmo Kesimo Mínimo
-    if(Pivot_Selection==7){
-         int k = (high + 1) / 2; // índice da mediana em um conjunto ímpar
-        return kEsimoMinimoEncontraMediana(array, low, high, k);
+    if(pivoSelectOption==7){
+         int k = (fim + 1) / 2; // índice da mediana em um conjunto ímpar
+        return kEsimoMinimoEncontraMediana(array, ini, fim, k);
     }
 
     // pivos mediana de k valores
-    if(Pivot_Selection==5){
-        int meio = (low + high) / 2;
+    if(pivoSelectOption==5){
+        int meio = (ini + fim) / 2;
 
         // Ordena os três valores: arr[inicio], arr[meio] e arr[fim]
-        if (array[low] > array[meio])
-            std::swap(array[low], array[meio]);
-        if (array[meio] > array[high])
-            std::swap(array[meio], array[high]);
-        if (array[low] > array[meio])
-            std::swap(array[low], array[meio]);
+        if (array[ini] > array[meio])
+            std::swap(array[ini], array[meio]);
+        if (array[meio] > array[fim])
+            std::swap(array[meio], array[fim]);
+        if (array[ini] > array[meio])
+            std::swap(array[ini], array[meio]);
 
         // Coloca o valor do meio como pivô
         return meio;
@@ -106,18 +106,18 @@ int getPivotPosition(vector<int> &array, int low, int high, int Pivot_Selection)
 
 
      //gera pivos utilizando o metodo de "acha pivo"
-    if(Pivot_Selection==6){
-        int mid = low + (high - low) / 2;
+    if(pivoSelectOption==6){
+        int mid = ini + (fim - ini) / 2;
         int pivotIndex = mid;
 
-        if ((array[low] <= array[mid] && array[mid] <= array[high]) ||
-            (array[high] <= array[mid] && array[mid] <= array[low])) {
+        if ((array[ini] <= array[mid] && array[mid] <= array[fim]) ||
+            (array[fim] <= array[mid] && array[mid] <= array[ini])) {
             pivotIndex = mid;
-        } else if ((array[mid] <= array[low] && array[low] <= array[high]) ||
-                   (array[high] <= array[low] && array[low] <= array[mid])) {
-            pivotIndex = low;
+        } else if ((array[mid] <= array[ini] && array[ini] <= array[fim]) ||
+                   (array[fim] <= array[ini] && array[ini] <= array[mid])) {
+            pivotIndex = ini;
         } else {
-            pivotIndex = high;
+            pivotIndex = fim;
         }
 
     return pivotIndex;
@@ -129,31 +129,31 @@ int getPivotPosition(vector<int> &array, int low, int high, int Pivot_Selection)
 }
 
 // Função de partição do QuickSort
-int partition(vector<int>& array, int low, int high, int Pivot_Selection) {
-    int pivotIndex = getPivotPosition(array, low, high, Pivot_Selection);
-    swap(array[pivotIndex], array[high]);
+int partition(vector<int>& array, int ini, int fim, int pivoSelectOption) {
+    int pivotIndex = getPivotPosition(array, ini, fim, pivoSelectOption);
+    swap(array[pivotIndex], array[fim]);
 
 
-    int pivot = array[high]; // Pivô é agora o último elemento
-    int i = low - 1; // Índice do menor elemento
+    int pivot = array[fim]; // Pivô é agora o último elemento
+    int i = ini - 1; // Índice do menor elemento
 
-    for (int j = low; j < high; j++) {
+    for (int j = ini; j < fim; j++) {
         if (array[j] <= pivot) {
             i++;
             swap(array[i], array[j]);
         }
     }
 
-    swap(array[i + 1], array[high]);
+    swap(array[i + 1], array[fim]);
     return i + 1;
 }
 
 // Função principal do QuickSort
-void quickSort(vector<int>& array, int low, int high, int Pivot_Selection) {
-    if (low < high) {
-        int pi = partition(array, low, high, Pivot_Selection);
-        quickSort(array, low, pi - 1, Pivot_Selection);
-        quickSort(array, pi + 1, high, Pivot_Selection);
+void quickSort(vector<int>& array, int ini, int fim, int pivoSelectOption) {
+    if (ini < fim) {
+        int pi = partition(array, ini, fim, pivoSelectOption);
+        quickSort(array, ini, pi - 1, pivoSelectOption);
+        quickSort(array, pi + 1, fim, pivoSelectOption);
     }
 }
 
@@ -248,7 +248,7 @@ int main() {
 
 
     srand(time(0));
-    int Pivot_Selection = 1;
+    int pivoSelectOption = 1;
     int p = 3;
 
     float percentSwapArray[3] = {0.05, 0.25, 0.45};
@@ -269,7 +269,7 @@ int main() {
 
 
     // for(p = 0;p<5;p++){
-    string pivotamento = to_string(Pivot_Selection);
+    string pivotamento = to_string(pivoSelectOption);
     string tamanho = to_string(size[p]);
     string saida = "data_" +  pivotamento + "_" + tamanho  + ".txt";
     ofstream arquivo_saida(saida);
@@ -285,11 +285,11 @@ int main() {
             swapingNumbers(array[p], percentSwap);
 
             auto start_time = chrono::steady_clock::now();
-            if(Pivot_Selection == 1) {
+            if(pivoSelectOption == 1) {
                 quickSortNewVersion(array[p]);
             }
             else {
-                quickSort(array[p], 0, size[p] - 1,Pivot_Selection);
+                quickSort(array[p], 0, size[p] - 1,pivoSelectOption);
             }
             auto end_time = chrono::steady_clock::now();
 
