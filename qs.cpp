@@ -7,6 +7,9 @@
 #include <sstream>
 #include <algorithm>
 
+
+// Este código analisa o desempenho do algoritmo QuickSort sob diferentes condições, como diferentes métodos de seleção de pivôs e níveis de desorganização do array
+
 using namespace std;
 
 // algoritmo k-ésimo mínimo que encontra o elemento da mediana em tempo linear
@@ -242,6 +245,17 @@ void quickSortNewVersion(vector<int> &vect)
 
 
 
+
+/*
+
+- `pivoSelectOption` controla o método de seleção de pivô.
+- `p` é usado para iterar através do array `size`.
+- `percentSwapArray` contém os níveis de desorganização.
+-  array `size` contém os tamanhos dos arrays a serem classificados.
+- `array` é uma matriz de vetores, cada vetor representando uma matriz de inteiros de um tamanho específico.
+
+*/
+
 int main() {
 
 
@@ -267,8 +281,6 @@ int main() {
     }
 
 
-
-    // for(p = 0;p<5;p++){
     string pivotamento = to_string(pivoSelectOption);
     string tamanho = to_string(size[p]);
     string saida = "data_" +  pivotamento + "_" + tamanho  + ".txt";
