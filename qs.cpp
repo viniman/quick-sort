@@ -75,17 +75,34 @@ int getPivotPosition(vector<int>& array, int low, int high, int Pivot_Selection)
     return indiceMaisProximo;
     }
 
+
     //gera pivos aleatorios
     if(Pivot_Selection==4){
         return low + rand() % (high - low + 1);
     }
 
-    // pivos mediana de k valores
-
-    if(Pivot_Selection==5){
+    // pivo mediana usando o Algoritmo Kesimo Mínimo
+    if(Pivot_Selection==7){
          int k = (high + 1) / 2; // índice da mediana em um conjunto ímpar
         return kEsimoMinimoEncontraMediana(array, low, high, k);
     }
+
+    // pivos mediana de k valores
+    if(Pivot_Selection==5){
+        int meio = (low + high) / 2;
+
+        // Ordena os três valores: arr[inicio], arr[meio] e arr[fim]
+        if (array[low] > array[meio])
+            std::swap(array[low], array[meio]);
+        if (array[meio] > array[high])
+            std::swap(array[meio], array[high]);
+        if (array[low] > array[meio])
+            std::swap(array[low], array[meio]);
+
+        // Coloca o valor do meio como pivô
+        return meio;
+    }
+
 
      //gera pivos utilizando o metodo de "acha pivo"
     if(Pivot_Selection==6){
