@@ -12,6 +12,50 @@
 
 using namespace std;
 
+
+// Função de impressão de um vect
+void printArray(const vector<int>& vect) {
+    for (int value : vect) {
+        cout << value << " ";
+    }
+    cout << endl;
+}
+
+void intArray(vector<int>& vect,int n) {
+    for (int i=0;i<n;i++) {
+        vect[i]=i+1;
+    }
+}
+
+void createArray(vector<int>& vect,int n) {
+    for (int i=0;i<n;i++) {
+        vect.push_back(i+1);
+    }
+}
+
+vector<int> creatArrayReturn(int n) {
+    vector<int> vect;
+    for (int i=0;i<n;i++) {
+        vect.push_back(i+1);
+    }
+    return vect;
+}
+
+void swapingNumbers(vector<int> &vect, float swapProportion) {
+    int size = vect.size();
+    float numSwap = size * swapProportion;
+
+    for (int i = 0; i < numSwap; ++i) {
+
+        int indice1 = rand() % size;
+        int indice2 = rand() % size;
+
+        swap(vect[indice1], vect[indice2]);
+    }
+}
+
+
+
 // algoritmo k-ésimo mínimo que encontra o elemento da mediana em tempo linear
 int kEsimoMinimoEncontraMediana(std::vector<int>& vect, int inicio, int fim, int k) {
     if (inicio == fim)
@@ -206,56 +250,12 @@ void quickSort(vector<int>& vect, int ini, int fim, int pivoSelectOption) {
     }
 }
 
-// Função de impressão de um vect
-void printArray(const vector<int>& vect) {
-    for (int value : vect) {
-        cout << value << " ";
-    }
-    cout << endl;
-}
-
-void intArray(vector<int>& vect,int n) {
-    for (int i=0;i<n;i++) {
-        vect[i]=i+1;
-    }
-}
-
-void creatArray(vector<int>& vect,int n) {
-    for (int i=0;i<n;i++) {
-        vect.push_back(i+1);
-    }
-}
-
-vector<int> creatArrayReturn(int n) {
-    vector<int> vect;
-    for (int i=0;i<n;i++) {
-        vect.push_back(i+1);
-    }
-    return vect;
-}
-
-void swapingNumbers(vector<int> &vect, float swapProportion) {
-    int size = vect.size();
-    float numSwap = size * swapProportion;
-
-    for (int i = 0; i < numSwap; ++i) {
-
-        int indice1 = rand() % size;
-        int indice2 = rand() % size;
-
-        swap(vect[indice1], vect[indice2]);
-    }
-}
-
-
-
-
-// Chamada Recursiva para Nova versão do Quick Sort
+// Chamada Recursiva para Nova versão do Quick Sort com pivo sendo primeiro elemento
 void quickSortRec(vector<int> &vect, int ini, int fim) {
     int i, j;
     i = ini;
     j = fim - 1;
-    int pivo = ini;// getPivotPosition(vect, ini, fim, 1); //vect[(ini + fim) / 2];
+    int pivo = ini;
 
     ///Inicio Particionamento
     while (i <= j) {
@@ -291,7 +291,6 @@ void quickSortNewVersion(vector<int> &vect)
 
 
 
-
 /*
 
 - `pivoSelectOption` controla o método de seleção de pivô.
@@ -323,7 +322,7 @@ int main() {
 
     vector<int> vect[5];
     for(int i = 0;i<5;i++){
-        creatArray(vect[i],size[i]);
+        createArray(vect[i],size[i]);
     }
 
 
