@@ -21,12 +21,6 @@ void printArray(const vector<int>& vect) {
     cout << endl;
 }
 
-void intArray(vector<int>& vect,int n) {
-    for (int i=0;i<n;i++) {
-        vect[i]=i+1;
-    }
-}
-
 void createArray(vector<int>& vect,int n) {
     for (int i=0;i<n;i++) {
         vect.push_back(i+1);
@@ -132,7 +126,7 @@ int achaPivo(vector<int>& vect, int ini, int fim) {
 int getPivotPosition(vector<int> &vect, int ini, int fim, int pivoSelectOption) {
     //pivo fixo no primeiro elemento
     if(pivoSelectOption==1){
-        return encontrarMenorValorIndice(vect);//ini;
+        return ini;
     }
 
     //Pivô fixo na posição central da lista
@@ -182,9 +176,15 @@ int getPivotPosition(vector<int> &vect, int ini, int fim, int pivoSelectOption) 
         return achaPivo(vect, ini, fim);
     }
 
+
+    //pivo encontrado sendo o menor valor do vetor
+    if(pivoSelectOption==7){
+        return encontrarMenorValorIndice(vect);//ini;
+    }
+
     // pivos mediana de k valores - no caso fizemos para k=3
     int k = 3;
-    if(pivoSelectOption==7){
+    if(pivoSelectOption==8){
         int meio = (ini + fim) / 2;
 
         // Ordena os três valores: arr[inicio], arr[meio] e arr[fim]
@@ -200,7 +200,7 @@ int getPivotPosition(vector<int> &vect, int ini, int fim, int pivoSelectOption) 
     }
 
     //gera pivos utilizando o metodo de "acha pivo" encontrado na internet
-    if(pivoSelectOption==8){
+    if(pivoSelectOption==9){
         int mid = ini + (fim - ini) / 2;
         int pivotIndex = mid;
 
