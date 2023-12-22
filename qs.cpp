@@ -309,7 +309,7 @@ int main() {
 
     srand(time(0));
     int pivoSelectOption = 6;
-    int p = 3;
+    int p = 0;
 
     float percentSwapArray[3] = {0.05, 0.25, 0.45};
 

@@ -1,0 +1,92 @@
+tamanho 100 teste: 1
+
+desorganização nivel: 5% : 12
+tamanho 100 teste: 2
+
+desorganização nivel: 5% : 11
+tamanho 100 teste: 3
+
+desorganização nivel: 5% : 13
+tamanho 100 teste: 4
+
+desorganização nivel: 5% : 13
+tamanho 100 teste: 5
+
+desorganização nivel: 5% : 10
+tamanho 100 teste: 6
+
+desorganização nivel: 5% : 10
+tamanho 100 teste: 7
+
+desorganização nivel: 5% : 15
+tamanho 100 teste: 8
+
+desorganização nivel: 5% : 10
+tamanho 100 teste: 9
+
+desorganização nivel: 5% : 14
+tamanho 100 teste: 10
+
+desorganização nivel: 5% : 10
+tamanho 100 teste: 1
+
+desorganização nivel: 25% : 10
+tamanho 100 teste: 2
+
+desorganização nivel: 25% : 13
+tamanho 100 teste: 3
+
+desorganização nivel: 25% : 13
+tamanho 100 teste: 4
+
+desorganização nivel: 25% : 12
+tamanho 100 teste: 5
+
+desorganização nivel: 25% : 9
+tamanho 100 teste: 6
+
+desorganização nivel: 25% : 11
+tamanho 100 teste: 7
+
+desorganização nivel: 25% : 12
+tamanho 100 teste: 8
+
+desorganização nivel: 25% : 9
+tamanho 100 teste: 9
+
+desorganização nivel: 25% : 8
+tamanho 100 teste: 10
+
+desorganização nivel: 25% : 12
+tamanho 100 teste: 1
+
+desorganização nivel: 45% : 14
+tamanho 100 teste: 2
+
+desorganização nivel: 45% : 11
+tamanho 100 teste: 3
+
+desorganização nivel: 45% : 9
+tamanho 100 teste: 4
+
+desorganização nivel: 45% : 9
+tamanho 100 teste: 5
+
+desorganização nivel: 45% : 12
+tamanho 100 teste: 6
+
+desorganização nivel: 45% : 8
+tamanho 100 teste: 7
+
+desorganização nivel: 45% : 8
+tamanho 100 teste: 8
+
+desorganização nivel: 45% : 9
+tamanho 100 teste: 9
+
+desorganização nivel: 45% : 15
+tamanho 100 teste: 10
+
+desorganização nivel: 45% : 9
+
+-------------------------------------------------------------------------------------------
