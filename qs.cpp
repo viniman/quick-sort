@@ -1,3 +1,13 @@
+/*
+-----------------------------------------------
+Trabalho APA
+DCC001 - Análise e Projeto de Algoritmos
+Lucas Castro Carvalho- 201835015
+Vinicius Carlos de Oliveira - 201635025
+-----------------------------------------------
+*/
+
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -12,6 +22,9 @@
 
 using namespace std;
 
+/*
+    Funções Auxiliares
+*/
 
 // Função de impressão de um vectOrder
 void printArray(const vector<int>& vectOrder) {
