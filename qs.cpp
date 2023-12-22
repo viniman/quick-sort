@@ -8,30 +8,30 @@
 #include <algorithm>
 
 
-// Este código analisa o desempenho do algoritmo QuickSort sob diferentes condições, como diferentes métodos de seleção de pivôs e níveis de desorganização do array
+// Este código analisa o desempenho do algoritmo QuickSort sob diferentes condições, como diferentes métodos de seleção de pivôs e níveis de desorganização do vect
 
 using namespace std;
 
 // algoritmo k-ésimo mínimo que encontra o elemento da mediana em tempo linear
-int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, int k) {
+int kEsimoMinimoEncontraMediana(std::vector<int>& vect, int inicio, int fim, int k) {
     if (inicio == fim)
         return inicio;
 
     int pivotIndex = inicio + (fim - inicio) / 2; //inicio + rand() % (fim - inicio + 1);
-    int pivot = array[pivotIndex];
+    int pivot = vect[pivotIndex];
 
-    swap(array[pivotIndex], array[fim]);
+    swap(vect[pivotIndex], vect[fim]);
 
     // Particionamento
     int i = inicio;
     for (int j = inicio; j < fim; j++) {
-        if (array[j] <= pivot) {
-            swap(array[i], array[j]);
+        if (vect[j] <= pivot) {
+            swap(vect[i], vect[j]);
             i++;
         }
     }
 
-    swap(array[i], array[fim]);
+    swap(vect[i], vect[fim]);
 
     // Verificar a posição do pivô
     int posicaoPivo = i - inicio + 1;
@@ -39,26 +39,26 @@ int kEsimoMinimoEncontraMediana(std::vector<int>& array, int inicio, int fim, in
     if (posicaoPivo == k)
         return i;
     else if (posicaoPivo < k)
-        return kEsimoMinimoEncontraMediana(array, i + 1, fim, k - posicaoPivo);
+        return kEsimoMinimoEncontraMediana(vect, i + 1, fim, k - posicaoPivo);
     else
-        return kEsimoMinimoEncontraMediana(array, inicio, i - 1, k);
+        return kEsimoMinimoEncontraMediana(vect, inicio, i - 1, k);
 }
 
-int encontrarMenorValorIndice(vector<int> &array) {
+int encontrarMenorValorIndice(vector<int> &vect) {
 
-    int tamanho = array.size();
+    int tamanho = vect.size();
 
     if (tamanho <= 0) {
-        // Retorna -1 se o array estiver vazio
+        // Retorna -1 se o vect estiver vazio
         return -1;
     }
 
-    int menorValor = array[0];
+    int menorValor = vect[0];
     int indiceMenorValor = 0;
 
     for (int i = 1; i < tamanho; ++i) {
-        if (array[i] < menorValor) {
-            menorValor = array[i];
+        if (vect[i] < menorValor) {
+            menorValor = vect[i];
             indiceMenorValor = i;
         }
     }
@@ -67,12 +67,12 @@ int encontrarMenorValorIndice(vector<int> &array) {
 }
 
 
-int achaPivo(vector<int>& array, int ini, int fim) {
+int achaPivo(vector<int>& vect, int ini, int fim) {
     int pivo = 0;
     int pos = ini + 1;
 
     while (pos <= fim) {
-        if (array[pos] >= array[pos - 1]) {
+        if (vect[pos] >= vect[pos - 1]) {
             pos += 1;
         } else {
             pivo = pos;
@@ -85,10 +85,10 @@ int achaPivo(vector<int>& array, int ini, int fim) {
 
 
 //função para selecionar qual metodo de seleção de pivo vai ser utilizado
-int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption) {
+int getPivotPosition(vector<int> &vect, int ini, int fim, int pivoSelectOption) {
     //pivo fixo no primeiro elemento
     if(pivoSelectOption==1){
-        return encontrarMenorValorIndice(array);//ini;
+        return encontrarMenorValorIndice(vect);//ini;
     }
 
     //Pivô fixo na posição central da lista
@@ -103,11 +103,11 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
             int indiceMaisProximo = fim;
 
             // Calcula a média dos valores do início, meio e fim
-            int media = (array[ini] + array[meio] + array[fim]) / 3;
-            int diferencaMaisProxima = abs(array[ini] - media);
+            int media = (vect[ini] + vect[meio] + vect[fim]) / 3;
+            int diferencaMaisProxima = abs(vect[ini] - media);
 
             for (int i = ini + 1; i <= fim; ++i) {
-                int diferencaAtual = abs(array[i] - media);
+                int diferencaAtual = abs(vect[i] - media);
                 if (diferencaAtual < diferencaMaisProxima) {
                     diferencaMaisProxima = diferencaAtual;
                     indiceMaisProximo = i;
@@ -127,7 +127,7 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
     // pivo mediana usando o Algoritmo Kesimo Mínimo
     if(pivoSelectOption==5){
          int k = (fim + 1) / 2; // índice da mediana em um conjunto ímpar
-        return kEsimoMinimoEncontraMediana(array, ini, fim, k);
+        return kEsimoMinimoEncontraMediana(vect, ini, fim, k);
     }
 
 
@@ -135,7 +135,7 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
 
      //gera pivos utilizando o metodo de "acha pivo"
     if(pivoSelectOption==6){
-        return achaPivo(array, ini, fim);
+        return achaPivo(vect, ini, fim);
     }
 
     // pivos mediana de k valores - no caso fizemos para k=3
@@ -144,12 +144,12 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
         int meio = (ini + fim) / 2;
 
         // Ordena os três valores: arr[inicio], arr[meio] e arr[fim]
-        if (array[ini] > array[meio])
-            std::swap(array[ini], array[meio]);
-        if (array[meio] > array[fim])
-            std::swap(array[meio], array[fim]);
-        if (array[ini] > array[meio])
-            std::swap(array[ini], array[meio]);
+        if (vect[ini] > vect[meio])
+            std::swap(vect[ini], vect[meio]);
+        if (vect[meio] > vect[fim])
+            std::swap(vect[meio], vect[fim]);
+        if (vect[ini] > vect[meio])
+            std::swap(vect[ini], vect[meio]);
 
         // Coloca o valor do meio como pivô
         return meio;
@@ -160,11 +160,11 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
         int mid = ini + (fim - ini) / 2;
         int pivotIndex = mid;
 
-        if ((array[ini] <= array[mid] && array[mid] <= array[fim]) ||
-            (array[fim] <= array[mid] && array[mid] <= array[ini])) {
+        if ((vect[ini] <= vect[mid] && vect[mid] <= vect[fim]) ||
+            (vect[fim] <= vect[mid] && vect[mid] <= vect[ini])) {
             pivotIndex = mid;
-        } else if ((array[mid] <= array[ini] && array[ini] <= array[fim]) ||
-                   (array[fim] <= array[ini] && array[ini] <= array[mid])) {
+        } else if ((vect[mid] <= vect[ini] && vect[ini] <= vect[fim]) ||
+                   (vect[fim] <= vect[ini] && vect[ini] <= vect[mid])) {
             pivotIndex = ini;
         } else {
             pivotIndex = fim;
@@ -178,64 +178,64 @@ int getPivotPosition(vector<int> &array, int ini, int fim, int pivoSelectOption)
 }
 
 // Função de partição do QuickSort
-int partition(vector<int>& array, int ini, int fim, int pivoSelectOption) {
-    int pivotIndex = getPivotPosition(array, ini, fim, pivoSelectOption);
-    swap(array[pivotIndex], array[fim]);
+int partition(vector<int>& vect, int ini, int fim, int pivoSelectOption) {
+    int pivotIndex = getPivotPosition(vect, ini, fim, pivoSelectOption);
+    swap(vect[pivotIndex], vect[fim]);
 
 
-    int pivot = array[fim]; // Pivô é agora o último elemento
+    int pivot = vect[fim]; // Pivô é agora o último elemento
     int i = ini - 1; // Índice do menor elemento
 
     for (int j = ini; j < fim; j++) {
-        if (array[j] <= pivot) {
+        if (vect[j] <= pivot) {
             i++;
-            swap(array[i], array[j]);
+            swap(vect[i], vect[j]);
         }
     }
 
-    swap(array[i + 1], array[fim]);
+    swap(vect[i + 1], vect[fim]);
     return i + 1;
 }
 
 // Função principal do QuickSort
-void quickSort(vector<int>& array, int ini, int fim, int pivoSelectOption) {
+void quickSort(vector<int>& vect, int ini, int fim, int pivoSelectOption) {
     if (ini < fim) {
-        int pi = partition(array, ini, fim, pivoSelectOption);
-        quickSort(array, ini, pi - 1, pivoSelectOption);
-        quickSort(array, pi + 1, fim, pivoSelectOption);
+        int pi = partition(vect, ini, fim, pivoSelectOption);
+        quickSort(vect, ini, pi - 1, pivoSelectOption);
+        quickSort(vect, pi + 1, fim, pivoSelectOption);
     }
 }
 
-// Função de impressão de um array
-void printArray(const vector<int>& array) {
-    for (int value : array) {
+// Função de impressão de um vect
+void printArray(const vector<int>& vect) {
+    for (int value : vect) {
         cout << value << " ";
     }
     cout << endl;
 }
 
-void intArray(vector<int>& array,int n) {
+void intArray(vector<int>& vect,int n) {
     for (int i=0;i<n;i++) {
-        array[i]=i+1;
+        vect[i]=i+1;
     }
 }
 
-void creatArray(vector<int>& array,int n) {
+void creatArray(vector<int>& vect,int n) {
     for (int i=0;i<n;i++) {
-        array.push_back(i+1);
+        vect.push_back(i+1);
     }
 }
 
 vector<int> creatArrayReturn(int n) {
-    vector<int> array;
+    vector<int> vect;
     for (int i=0;i<n;i++) {
-        array.push_back(i+1);
+        vect.push_back(i+1);
     }
-    return array;
+    return vect;
 }
 
-void swapingNumbers(vector<int> &array, float swapProportion) {
-    int size = array.size();
+void swapingNumbers(vector<int> &vect, float swapProportion) {
+    int size = vect.size();
     float numSwap = size * swapProportion;
 
     for (int i = 0; i < numSwap; ++i) {
@@ -243,7 +243,7 @@ void swapingNumbers(vector<int> &array, float swapProportion) {
         int indice1 = rand() % size;
         int indice2 = rand() % size;
 
-        swap(array[indice1], array[indice2]);
+        swap(vect[indice1], vect[indice2]);
     }
 }
 
@@ -295,10 +295,10 @@ void quickSortNewVersion(vector<int> &vect)
 /*
 
 - `pivoSelectOption` controla o método de seleção de pivô.
-- `p` é usado para iterar através do array `size`.
+- `p` é usado para iterar através do vect `size`.
 - `percentSwapArray` contém os níveis de desorganização.
--  array `size` contém os tamanhos dos arrays a serem classificados.
-- `array` é uma matriz de vetores, cada array representando uma matriz de inteiros de um tamanho específico.
+-  vect `size` contém os tamanhos dos arrays a serem classificados.
+- `vect` é uma matriz de vetores, cada vect representando uma matriz de inteiros de um tamanho específico.
 
 */
 
@@ -321,9 +321,9 @@ int main() {
     size[3] = 100000;
     size[4] = 1000000;
 
-    vector<int> array[5];
+    vector<int> vect[5];
     for(int i = 0;i<5;i++){
-        creatArray(array[i],size[i]);
+        creatArray(vect[i],size[i]);
     }
 
 
@@ -340,14 +340,14 @@ int main() {
             cout << "terminando " << i << endl;
             arquivo_saida << "tamanho " << size[p] << " teste: " << i+1 << endl << endl;
 
-            swapingNumbers(array[p], percentSwap);
+            swapingNumbers(vect[p], percentSwap);
 
             auto start_time = chrono::steady_clock::now();
             if(pivoSelectOption == 1) {
-                quickSortNewVersion(array[p]);
+                quickSortNewVersion(vect[p]);
             }
             else {
-                quickSort(array[p], 0, size[p] - 1,pivoSelectOption);
+                quickSort(vect[p], 0, size[p] - 1,pivoSelectOption);
             }
             auto end_time = chrono::steady_clock::now();
 
